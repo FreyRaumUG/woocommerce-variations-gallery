@@ -1,4 +1,4 @@
-# FynDesign Variation Gallery
+# WooCommerce Variation Gallery
 
 A WooCommerce plugin that allows assigning multiple gallery images to individual product variations. When a customer selects a variation, the entire product gallery is replaced with the variation-specific images.
 
