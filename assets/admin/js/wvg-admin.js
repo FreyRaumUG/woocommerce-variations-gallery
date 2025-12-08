@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    var FVG_Admin = {
+    var WVG_Admin = {
 
         /**
          * Initialize admin functionality
@@ -53,9 +53,9 @@
 
             // Create media frame
             var frame = wp.media({
-                title: fvg_admin_params.i18n_select_images,
+                title: wvg_admin_params.i18n_select_images,
                 button: {
-                    text: fvg_admin_params.i18n_add_to_gallery
+                    text: wvg_admin_params.i18n_add_to_gallery
                 },
                 multiple: true,
                 library: {
@@ -92,7 +92,7 @@
                         $('<button>', {
                             type: 'button',
                             'class': 'fvg-remove-image',
-                            title: fvg_admin_params.i18n_remove
+                            title: wvg_admin_params.i18n_remove
                         }).append(
                             $('<span>', { 'class': 'dashicons dashicons-no-alt' })
                         ).appendTo($item);
@@ -210,7 +210,7 @@
 
     // Initialize on document ready
     $(document).ready(function() {
-        FVG_Admin.init();
+        WVG_Admin.init();
     });
 
 })(jQuery);

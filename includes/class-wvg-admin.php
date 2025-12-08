@@ -1,6 +1,6 @@
 <?php
 /**
- * FVG Admin
+ * WVG Admin
  *
  * Handles admin functionality for variation galleries
  */
@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class FVG_Admin {
+class WVG_Admin {
 
     /**
      * Constructor
@@ -34,13 +34,13 @@ class FVG_Admin {
      */
     public function render_gallery_field($loop, $variation_data, $variation) {
         $variation_id = $variation->ID;
-        $gallery_ids = FVG_Gallery_Helper::get_variation_gallery_ids($variation_id);
+        $gallery_ids = WVG_Gallery_Helper::get_variation_gallery_ids($variation_id);
         $gallery_ids_string = implode(',', $gallery_ids);
         ?>
         <div class="fvg-variation-gallery form-row form-row-full" data-variation-loop="<?php echo esc_attr($loop); ?>">
             <label>
-                <?php esc_html_e('Varianten-Galerie', 'fyndesign-variation-gallery'); ?>
-                <span class="woocommerce-help-tip" data-tip="<?php esc_attr_e('Fügen Sie zusätzliche Galerie-Bilder für diese Variante hinzu. Diese ersetzen die Hauptprodukt-Galerie wenn die Variante ausgewählt wird.', 'fyndesign-variation-gallery'); ?>"></span>
+                <?php esc_html_e('Varianten-Galerie', 'woocommerce-variations-gallery'); ?>
+                <span class="woocommerce-help-tip" data-tip="<?php esc_attr_e('Fügen Sie zusätzliche Galerie-Bilder für diese Variante hinzu. Diese ersetzen die Hauptprodukt-Galerie wenn die Variante ausgewählt wird.', 'woocommerce-variations-gallery'); ?>"></span>
             </label>
 
             <div class="fvg-gallery-images">
@@ -54,7 +54,7 @@ class FVG_Admin {
                         ?>
                         <div class="fvg-gallery-item" data-attachment-id="<?php echo esc_attr($attachment_id); ?>">
                             <img src="<?php echo esc_url($image[0]); ?>" alt="">
-                            <button type="button" class="fvg-remove-image" title="<?php esc_attr_e('Entfernen', 'fyndesign-variation-gallery'); ?>">
+                            <button type="button" class="fvg-remove-image" title="<?php esc_attr_e('Entfernen', 'woocommerce-variations-gallery'); ?>">
                                 <span class="dashicons dashicons-no-alt"></span>
                             </button>
                         </div>
@@ -63,16 +63,16 @@ class FVG_Admin {
             </div>
 
             <input type="hidden"
-                   name="fvg_gallery_ids[<?php echo esc_attr($loop); ?>]"
+                   name="wvg_gallery_ids[<?php echo esc_attr($loop); ?>]"
                    class="fvg-gallery-ids"
                    value="<?php echo esc_attr($gallery_ids_string); ?>">
 
             <button type="button" class="button fvg-add-images">
-                <?php esc_html_e('Galerie-Bilder hinzufügen', 'fyndesign-variation-gallery'); ?>
+                <?php esc_html_e('Galerie-Bilder hinzufügen', 'woocommerce-variations-gallery'); ?>
             </button>
 
             <p class="description">
-                <?php esc_html_e('Ziehen Sie die Bilder um die Reihenfolge zu ändern.', 'fyndesign-variation-gallery'); ?>
+                <?php esc_html_e('Ziehen Sie die Bilder um die Reihenfolge zu ändern.', 'woocommerce-variations-gallery'); ?>
             </p>
         </div>
         <?php
@@ -98,9 +98,9 @@ class FVG_Admin {
             }
         }
 
-        if (isset($_POST['fvg_gallery_ids'][$i])) {
-            $gallery_ids = sanitize_text_field(wp_unslash($_POST['fvg_gallery_ids'][$i]));
-            FVG_Gallery_Helper::save_variation_gallery_ids($variation->get_id(), $gallery_ids);
+        if (isset($_POST['wvg_gallery_ids'][$i])) {
+            $gallery_ids = sanitize_text_field(wp_unslash($_POST['wvg_gallery_ids'][$i]));
+            WVG_Gallery_Helper::save_variation_gallery_ids($variation->get_id(), $gallery_ids);
         }
     }
 
@@ -130,25 +130,25 @@ class FVG_Admin {
         // Enqueue admin CSS
         wp_enqueue_style(
             'fvg-admin',
-            FVG_PLUGIN_URL . 'assets/admin/css/fvg-admin.css',
+            WVG_PLUGIN_URL . 'assets/admin/css/fvg-admin.css',
             [],
-            FVG_VERSION
+            WVG_VERSION
         );
 
         // Enqueue admin JS
         wp_enqueue_script(
             'fvg-admin',
-            FVG_PLUGIN_URL . 'assets/admin/js/fvg-admin.js',
+            WVG_PLUGIN_URL . 'assets/admin/js/fvg-admin.js',
             ['jquery', 'jquery-ui-sortable', 'wp-util'],
-            FVG_VERSION,
+            WVG_VERSION,
             true
         );
 
         // Localize script
-        wp_localize_script('fvg-admin', 'fvg_admin_params', [
-            'i18n_select_images' => __('Galerie-Bilder auswählen', 'fyndesign-variation-gallery'),
-            'i18n_add_to_gallery' => __('Zur Galerie hinzufügen', 'fyndesign-variation-gallery'),
-            'i18n_remove' => __('Entfernen', 'fyndesign-variation-gallery'),
+        wp_localize_script('fvg-admin', 'wvg_admin_params', [
+            'i18n_select_images' => __('Galerie-Bilder auswählen', 'woocommerce-variations-gallery'),
+            'i18n_add_to_gallery' => __('Zur Galerie hinzufügen', 'woocommerce-variations-gallery'),
+            'i18n_remove' => __('Entfernen', 'woocommerce-variations-gallery'),
         ]);
     }
 }

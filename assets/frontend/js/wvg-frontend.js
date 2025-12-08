@@ -7,7 +7,7 @@
 (function($) {
     'use strict';
 
-    var FVG_Frontend = {
+    var WVG_Frontend = {
 
         /**
          * Original gallery HTML for reset
@@ -49,9 +49,9 @@
             }
 
             // Store original gallery HTML from server
-            if (typeof fvg_frontend_params !== 'undefined' && fvg_frontend_params.original_gallery_html) {
-                this.originalGalleryHtml = fvg_frontend_params.original_gallery_html;
-                this.transitionDuration = parseInt(fvg_frontend_params.transition_duration, 10) || 300;
+            if (typeof wvg_frontend_params !== 'undefined' && wvg_frontend_params.original_gallery_html) {
+                this.originalGalleryHtml = wvg_frontend_params.original_gallery_html;
+                this.transitionDuration = parseInt(wvg_frontend_params.transition_duration, 10) || 300;
             } else {
                 // Fallback: store current gallery HTML
                 this.originalGalleryHtml = this.$galleryWrapper.html();
@@ -84,9 +84,9 @@
          */
         onVariationFound: function(variation) {
             // Check if variation has custom gallery
-            if (variation.fvg_gallery && variation.fvg_gallery.has_gallery && variation.fvg_gallery.html) {
+            if (variation.wvg_gallery && variation.wvg_gallery.has_gallery && variation.wvg_gallery.html) {
                 // Swap to variation gallery
-                this.swapGallery(variation.fvg_gallery.html);
+                this.swapGallery(variation.wvg_gallery.html);
             } else {
                 // No custom gallery - restore original product gallery
                 // This ensures switching from a variant with gallery to one without shows the default
@@ -198,7 +198,7 @@
     $(document).ready(function() {
         // Only init on single product pages with variable products
         if ($('.woocommerce-product-gallery').length > 0 && $('.variations_form').length > 0) {
-            FVG_Frontend.init();
+            WVG_Frontend.init();
         }
     });
 

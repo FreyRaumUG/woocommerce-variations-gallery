@@ -6,7 +6,7 @@
  * Version: 1.0.1
  * Author: FreyRaum UG
  * Author URI: https://www.freyraum-ug.com
- * Text Domain: fyndesign-variation-gallery
+ * Text Domain: woocommerce-variations-gallery
  * Domain Path: /languages
  * Requires at least: 6.0
  * Requires PHP: 7.4
@@ -17,10 +17,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('FVG_VERSION', '1.0.1');
-define('FVG_PLUGIN_DIR', plugin_dir_path(__FILE__));
-define('FVG_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('FVG_PLUGIN_BASENAME', plugin_basename(__FILE__));
+define('WVG_VERSION', '1.0.1');
+define('WVG_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('WVG_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('WVG_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 final class FynDesign_Variation_Gallery {
 
@@ -52,24 +52,24 @@ final class FynDesign_Variation_Gallery {
     }
 
     private function includes() {
-        require_once FVG_PLUGIN_DIR . 'includes/class-fvg-gallery-helper.php';
-        require_once FVG_PLUGIN_DIR . 'includes/class-fvg-admin.php';
-        require_once FVG_PLUGIN_DIR . 'includes/class-fvg-frontend.php';
+        require_once WVG_PLUGIN_DIR . 'includes/class-wvg-gallery-helper.php';
+        require_once WVG_PLUGIN_DIR . 'includes/class-wvg-admin.php';
+        require_once WVG_PLUGIN_DIR . 'includes/class-wvg-frontend.php';
     }
 
     private function init_components() {
         if (is_admin()) {
-            new FVG_Admin();
+            new WVG_Admin();
         }
 
         if (!is_admin() || wp_doing_ajax()) {
-            new FVG_Frontend();
+            new WVG_Frontend();
         }
     }
 }
 
-function FVG() {
+function WVG() {
     return FynDesign_Variation_Gallery::instance();
 }
 
-FVG();
+WVG();

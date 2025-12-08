@@ -1,6 +1,6 @@
 <?php
 /**
- * FVG Frontend
+ * WVG Frontend
  *
  * Handles frontend functionality for variation galleries
  */
@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class FVG_Frontend {
+class WVG_Frontend {
 
     /**
      * Original gallery HTML storage
@@ -40,20 +40,20 @@ class FVG_Frontend {
      */
     public function add_gallery_data($variation_data, $product, $variation) {
         $variation_id = $variation->get_id();
-        $gallery_ids = FVG_Gallery_Helper::get_variation_gallery_ids($variation_id);
+        $gallery_ids = WVG_Gallery_Helper::get_variation_gallery_ids($variation_id);
 
         if (!empty($gallery_ids)) {
             // Variation has custom gallery - generate HTML
-            $gallery_html = FVG_Gallery_Helper::get_gallery_html($gallery_ids, $variation_id);
+            $gallery_html = WVG_Gallery_Helper::get_gallery_html($gallery_ids, $variation_id);
 
-            $variation_data['fvg_gallery'] = [
+            $variation_data['wvg_gallery'] = [
                 'has_gallery' => true,
                 'image_ids'   => $gallery_ids,
                 'html'        => $gallery_html,
             ];
         } else {
             // No custom gallery - WooCommerce will use default behavior (variation main image only)
-            $variation_data['fvg_gallery'] = [
+            $variation_data['wvg_gallery'] = [
                 'has_gallery' => false,
             ];
         }
@@ -104,17 +104,17 @@ class FVG_Frontend {
         // Enqueue frontend CSS
         wp_enqueue_style(
             'fvg-frontend',
-            FVG_PLUGIN_URL . 'assets/frontend/css/fvg-frontend.css',
+            WVG_PLUGIN_URL . 'assets/frontend/css/fvg-frontend.css',
             [],
-            FVG_VERSION
+            WVG_VERSION
         );
 
         // Enqueue frontend JS
         wp_enqueue_script(
             'fvg-frontend',
-            FVG_PLUGIN_URL . 'assets/frontend/js/fvg-frontend.js',
+            WVG_PLUGIN_URL . 'assets/frontend/js/fvg-frontend.js',
             ['jquery', 'wc-single-product'],
-            FVG_VERSION,
+            WVG_VERSION,
             true
         );
 
@@ -122,7 +122,7 @@ class FVG_Frontend {
         $original_gallery_html = $this->get_product_gallery_html($product);
 
         // Localize script with settings
-        wp_localize_script('fvg-frontend', 'fvg_frontend_params', [
+        wp_localize_script('fvg-frontend', 'wvg_frontend_params', [
             'original_gallery_html' => $original_gallery_html,
             'transition_duration'   => 300,
         ]);
@@ -139,7 +139,7 @@ class FVG_Frontend {
 
         foreach ($variations as $variation) {
             $variation_id = $variation['variation_id'];
-            if (FVG_Gallery_Helper::variation_has_gallery($variation_id)) {
+            if (WVG_Gallery_Helper::variation_has_gallery($variation_id)) {
                 return true;
             }
         }

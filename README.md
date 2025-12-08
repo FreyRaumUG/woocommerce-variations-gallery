@@ -29,7 +29,7 @@ A WooCommerce plugin that allows assigning multiple gallery images to individual
 ### Via FTP/SFTP
 
 1. Extract the ZIP file
-2. Upload the `fyndesign-variation-gallery` folder to `/wp-content/plugins/`
+2. Upload the `woocommerce-variations-gallery` folder to `/wp-content/plugins/`
 3. Activate the plugin in **Plugins → Installed Plugins**
 
 ## Usage
@@ -64,7 +64,7 @@ When a variation is selected, the gallery smoothly transitions to show the varia
 ### Data Storage
 
 Gallery image IDs are stored as post meta on the variation:
-- **Meta Key**: `_fvg_gallery_image_ids`
+- **Meta Key**: `_wvg_gallery_image_ids`
 - **Format**: Comma-separated attachment IDs (e.g., `123,456,789`)
 
 ### Hooks Used

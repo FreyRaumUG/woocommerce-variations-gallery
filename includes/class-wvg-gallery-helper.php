@@ -1,6 +1,6 @@
 <?php
 /**
- * FVG Gallery Helper
+ * WVG Gallery Helper
  *
  * Handles gallery HTML generation for variations
  */
@@ -9,12 +9,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class FVG_Gallery_Helper {
+class WVG_Gallery_Helper {
 
     /**
      * Meta key for storing variation gallery image IDs
      */
-    const META_KEY = '_fvg_gallery_image_ids';
+    const META_KEY = '_wvg_gallery_image_ids';
 
     /**
      * Get gallery image IDs for a variation
