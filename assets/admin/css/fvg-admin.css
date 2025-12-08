@@ -1,0 +1,148 @@
+/**
+ * FynDesign Variation Gallery - Admin Styles
+ */
+
+/* Gallery container */
+.fvg-variation-gallery {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.fvg-variation-gallery > label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Gallery images container */
+.fvg-gallery-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+    min-height: 80px;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px dashed #ddd;
+    border-radius: 4px;
+}
+
+.fvg-gallery-images:empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fvg-gallery-images:empty::before {
+    content: 'Keine Galerie-Bilder';
+    color: #999;
+    font-style: italic;
+}
+
+/* Individual gallery item */
+.fvg-gallery-item {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    cursor: move;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.fvg-gallery-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fvg-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Remove button */
+.fvg-gallery-item .fvg-remove-image {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fvg-gallery-item:hover .fvg-remove-image {
+    opacity: 1;
+}
+
+.fvg-gallery-item .fvg-remove-image:hover {
+    background: #dc3232;
+}
+
+.fvg-gallery-item .fvg-remove-image .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+}
+
+/* Sortable placeholder */
+.fvg-sortable-placeholder {
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #0073aa;
+    border-radius: 4px;
+    background: rgba(0, 115, 170, 0.1);
+}
+
+/* Add images button */
+.fvg-variation-gallery .fvg-add-images {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.fvg-variation-gallery .fvg-add-images::before {
+    content: '\f132';
+    font-family: dashicons;
+    font-size: 16px;
+}
+
+/* Description text */
+.fvg-variation-gallery .description {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Dragging state */
+.fvg-gallery-item.ui-sortable-helper {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 782px) {
+    .fvg-gallery-item {
+        width: 60px;
+        height: 60px;
+    }
+
+    .fvg-sortable-placeholder {
+        width: 60px;
+        height: 60px;
+    }
+}

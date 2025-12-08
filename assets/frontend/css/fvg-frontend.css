@@ -1,0 +1,40 @@
+/**
+ * FynDesign Variation Gallery - Frontend Styles
+ *
+ * Smooth transitions when swapping product galleries
+ */
+
+/* Gallery transition state */
+.woocommerce-product-gallery {
+    transition: opacity 0.3s ease;
+}
+
+.woocommerce-product-gallery.fvg-swapping {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Ensure smooth image transitions */
+.woocommerce-product-gallery__wrapper {
+    transition: min-height 0.3s ease;
+}
+
+.woocommerce-product-gallery__image {
+    transition: opacity 0.3s ease;
+}
+
+/* Prevent layout shift during swap */
+.woocommerce-product-gallery.fvg-swapping .woocommerce-product-gallery__wrapper {
+    min-height: 300px;
+}
+
+/* Fade in effect for new images */
+.woocommerce-product-gallery__image img {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Loading state for images */
+.woocommerce-product-gallery.fvg-swapping .woocommerce-product-gallery__image img {
+    opacity: 0;
+}
