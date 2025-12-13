@@ -1,13 +1,17 @@
 # WooCommerce Variation Gallery
 
-A WooCommerce plugin that allows assigning multiple gallery images to individual product variations. When a customer selects a variation, the entire product gallery is replaced with the variation-specific images.
+A WooCommerce plugin that allows assigning multiple gallery images and custom titles to individual product variations. When a customer selects a variation, the product gallery and title are dynamically replaced.
+
+**Demo**: [https://fyndesign.de](https://fyndesign.de)
 
 ## Features
 
 - **Per-Variation Galleries**: Assign unique gallery images to each product variation
+- **Per-Variation Titles**: Set custom product titles for each variation
 - **Drag & Drop Sorting**: Easily reorder gallery images in the admin panel
-- **Smooth Transitions**: CSS animations when swapping galleries on the frontend
+- **Smooth Transitions**: CSS animations when swapping galleries and titles on the frontend
 - **WooCommerce Compatible**: Works with FlexSlider, Zoom, and PhotoSwipe
+- **Block Theme Support**: Compatible with Full Site Editing themes
 - **Lightweight**: Only loads assets on pages where needed
 - **Secure**: Includes nonce verification, capability checks, and proper sanitization
 
@@ -34,22 +38,23 @@ A WooCommerce plugin that allows assigning multiple gallery images to individual
 
 ## Usage
 
-### Adding Gallery Images to Variations
+### Adding Gallery Images and Titles to Variations
 
 1. Go to **Products → Edit Product**
 2. Scroll down to **Product Data → Variations**
 3. Click on a variation to expand it
-4. Find the **Variation Gallery** section
-5. Click **Add Gallery Images** to open the media library
+4. **Variation Title**: Enter a custom title in the "Varianten-Titel" field (optional)
+5. **Variation Gallery**: Click **Add Gallery Images** to open the media library
 6. Select one or more images and click **Add to Gallery**
 7. Drag images to reorder them
 8. Click **Save changes**
 
 ### Frontend Behavior
 
+- When a customer selects a variation **with** a custom title, the product title is replaced with the variation title
 - When a customer selects a variation **with** a custom gallery, the product gallery is replaced with the variation images
-- When a customer selects a variation **without** a custom gallery, the original product gallery is displayed
-- When the selection is cleared, the original gallery is restored
+- When a customer selects a variation **without** custom data, the original product title and gallery are displayed
+- When the selection is cleared, the original title and gallery are restored
 
 ## Screenshots
 
@@ -94,6 +99,12 @@ This plugin implements WordPress security best practices:
 - ✅ Prepared statements (uses WordPress native functions)
 
 ## Changelog
+
+### 1.1.0
+- Added per-variation custom title support
+- Title dynamically updates when variation is selected
+- Updated asset file naming for consistency
+- Added block theme support for title selector
 
 ### 1.0.1
 - Added nonce verification for save operations
