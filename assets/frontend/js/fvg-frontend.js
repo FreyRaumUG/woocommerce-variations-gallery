@@ -1,7 +1,7 @@
 /**
  * FynDesign Variation Gallery - Frontend JavaScript
  *
- * Handles gallery swapping when product variations are selected
+ * Handles gallery and title swapping when product variations are selected
  */
 
 (function($) {
@@ -15,6 +15,11 @@
         originalGalleryHtml: '',
 
         /**
+         * Original product title
+         */
+        originalTitle: '',
+
+        /**
          * Gallery jQuery object
          */
         $gallery: null,
@@ -23,6 +28,11 @@
          * Gallery wrapper jQuery object
          */
         $galleryWrapper: null,
+
+        /**
+         * Title element(s)
+         */
+        $titleElements: null,
 
         /**
          * Transition duration in ms
@@ -44,17 +54,32 @@
             this.$gallery = $('.woocommerce-product-gallery');
             this.$galleryWrapper = this.$gallery.find('.woocommerce-product-gallery__wrapper');
 
+            // Find title elements - exclude site title
+            var titleSelector = '.product_title, .entry-title, .wp-block-post-title';
+            if (typeof wvg_frontend_params !== 'undefined' && wvg_frontend_params.title_selector) {
+                titleSelector = wvg_frontend_params.title_selector;
+            }
+            this.$titleElements = $(titleSelector).filter(function() {
+                return !$(this).hasClass('wp-block-site-title');
+            }).first();
+
             if (!this.$gallery.length || !this.$galleryWrapper.length) {
                 return;
             }
 
-            // Store original gallery HTML from server
-            if (typeof wvg_frontend_params !== 'undefined' && wvg_frontend_params.original_gallery_html) {
-                this.originalGalleryHtml = wvg_frontend_params.original_gallery_html;
+            // Store original data from server
+            if (typeof wvg_frontend_params !== 'undefined') {
+                this.originalGalleryHtml = wvg_frontend_params.original_gallery_html || '';
+                this.originalTitle = wvg_frontend_params.original_title || '';
                 this.transitionDuration = parseInt(wvg_frontend_params.transition_duration, 10) || 300;
-            } else {
-                // Fallback: store current gallery HTML
+            }
+
+            // Fallback: store current values from DOM
+            if (!this.originalGalleryHtml) {
                 this.originalGalleryHtml = this.$galleryWrapper.html();
+            }
+            if (!this.originalTitle && this.$titleElements.length) {
+                this.originalTitle = this.$titleElements.text().trim();
             }
 
             // Bind events
@@ -83,13 +108,20 @@
          * @param {Object} variation Variation data object
          */
         onVariationFound: function(variation) {
-            // Check if variation has custom gallery
+            // Handle title change
+            if (variation.wvg_title) {
+                var newTitle = variation.wvg_title.title;
+                if (newTitle && this.$titleElements.length) {
+                    this.updateTitle(newTitle);
+                }
+            }
+
+            // Handle gallery change
             if (variation.wvg_gallery && variation.wvg_gallery.has_gallery && variation.wvg_gallery.html) {
                 // Swap to variation gallery
                 this.swapGallery(variation.wvg_gallery.html);
             } else {
                 // No custom gallery - restore original product gallery
-                // This ensures switching from a variant with gallery to one without shows the default
                 if (this.originalGalleryHtml) {
                     this.swapGallery(this.originalGalleryHtml);
                 }
@@ -100,10 +132,29 @@
          * Handle reset event (when selection is cleared)
          */
         onReset: function() {
+            // Restore original title
+            if (this.originalTitle && this.$titleElements.length) {
+                this.updateTitle(this.originalTitle);
+            }
+
             // Restore original product gallery
             if (this.originalGalleryHtml) {
                 this.swapGallery(this.originalGalleryHtml);
             }
+        },
+
+        /**
+         * Update product title with animation
+         *
+         * @param {string} newTitle New title text
+         */
+        updateTitle: function(newTitle) {
+            var self = this;
+            var duration = this.transitionDuration / 2;
+
+            this.$titleElements.animate({ opacity: 0 }, duration, function() {
+                $(this).text(newTitle).animate({ opacity: 1 }, duration);
+            });
         },
 
         /**

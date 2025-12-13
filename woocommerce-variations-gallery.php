@@ -2,8 +2,8 @@
 /**
  * Plugin Name: FynDesign Variation Gallery
  * Plugin URI: https://www.freyraum-ug.com
- * Description: Ermoeglicht das Zuordnen mehrerer Galerie-Bilder zu einzelnen WooCommerce Produktvarianten.
- * Version: 1.0.1
+ * Description: Ermoeglicht das Zuordnen von Galerie-Bildern und benutzerdefinierten Titeln zu einzelnen WooCommerce Produktvarianten.
+ * Version: 1.1.0
  * Author: FreyRaum UG
  * Author URI: https://www.freyraum-ug.com
  * Text Domain: woocommerce-variations-gallery
@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WVG_VERSION', '1.0.1');
+define('WVG_VERSION', '1.1.0');
 define('WVG_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('WVG_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('WVG_PLUGIN_BASENAME', plugin_basename(__FILE__));

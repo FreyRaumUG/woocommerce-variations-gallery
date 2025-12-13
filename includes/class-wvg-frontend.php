@@ -31,7 +31,7 @@ class WVG_Frontend {
     }
 
     /**
-     * Add gallery data to variation JSON response
+     * Add gallery and title data to variation JSON response
      *
      * @param array $variation_data Variation data array
      * @param WC_Product $product Parent product
@@ -40,6 +40,8 @@ class WVG_Frontend {
      */
     public function add_gallery_data($variation_data, $product, $variation) {
         $variation_id = $variation->get_id();
+
+        // Add gallery data
         $gallery_ids = WVG_Gallery_Helper::get_variation_gallery_ids($variation_id);
 
         if (!empty($gallery_ids)) {
@@ -57,6 +59,14 @@ class WVG_Frontend {
                 'has_gallery' => false,
             ];
         }
+
+        // Add title data
+        $custom_title = WVG_Admin::get_variation_title($variation_id);
+        $variation_data['wvg_title'] = [
+            'has_custom_title' => !empty($custom_title),
+            'title'            => !empty($custom_title) ? $custom_title : $product->get_name(),
+            'original_title'   => $product->get_name(),
+        ];
 
         return $variation_data;
     }
@@ -124,7 +134,9 @@ class WVG_Frontend {
         // Localize script with settings
         wp_localize_script('fvg-frontend', 'wvg_frontend_params', [
             'original_gallery_html' => $original_gallery_html,
+            'original_title'        => $product->get_name(),
             'transition_duration'   => 300,
+            'title_selector'        => '.product_title, .entry-title, .wp-block-post-title',
         ]);
     }
 

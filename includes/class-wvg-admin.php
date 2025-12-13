@@ -26,6 +26,21 @@ class WVG_Admin {
     }
 
     /**
+     * Meta key for variation title
+     */
+    const TITLE_META_KEY = '_wvg_variation_title';
+
+    /**
+     * Get variation title
+     *
+     * @param int $variation_id Variation ID
+     * @return string Custom title or empty string
+     */
+    public static function get_variation_title($variation_id) {
+        return get_post_meta($variation_id, self::TITLE_META_KEY, true);
+    }
+
+    /**
      * Render gallery upload field in variation form
      *
      * @param int $loop Variation loop index
@@ -36,7 +51,22 @@ class WVG_Admin {
         $variation_id = $variation->ID;
         $gallery_ids = WVG_Gallery_Helper::get_variation_gallery_ids($variation_id);
         $gallery_ids_string = implode(',', $gallery_ids);
+        $custom_title = self::get_variation_title($variation_id);
         ?>
+        <!-- Variationstitel -->
+        <p class="form-row form-row-full">
+            <label for="wvg_variation_title_<?php echo esc_attr($loop); ?>">
+                <?php esc_html_e('Varianten-Titel', 'woocommerce-variations-gallery'); ?>
+                <span class="woocommerce-help-tip" data-tip="<?php esc_attr_e('Optionaler Titel für diese Variante. Wird anstelle des Hauptprodukttitels angezeigt, wenn diese Variante ausgewählt wird.', 'woocommerce-variations-gallery'); ?>"></span>
+            </label>
+            <input type="text"
+                   id="wvg_variation_title_<?php echo esc_attr($loop); ?>"
+                   name="wvg_variation_title[<?php echo esc_attr($loop); ?>]"
+                   class="short"
+                   value="<?php echo esc_attr($custom_title); ?>"
+                   placeholder="<?php esc_attr_e('Produkttitel für diese Variante', 'woocommerce-variations-gallery'); ?>">
+        </p>
+
         <div class="fvg-variation-gallery form-row form-row-full" data-variation-loop="<?php echo esc_attr($loop); ?>">
             <label>
                 <?php esc_html_e('Varianten-Galerie', 'woocommerce-variations-gallery'); ?>
@@ -98,9 +128,20 @@ class WVG_Admin {
             }
         }
 
+        // Save gallery IDs
         if (isset($_POST['wvg_gallery_ids'][$i])) {
             $gallery_ids = sanitize_text_field(wp_unslash($_POST['wvg_gallery_ids'][$i]));
             WVG_Gallery_Helper::save_variation_gallery_ids($variation->get_id(), $gallery_ids);
+        }
+
+        // Save variation title
+        if (isset($_POST['wvg_variation_title'][$i])) {
+            $title = sanitize_text_field(wp_unslash($_POST['wvg_variation_title'][$i]));
+            if (!empty($title)) {
+                update_post_meta($variation->get_id(), self::TITLE_META_KEY, $title);
+            } else {
+                delete_post_meta($variation->get_id(), self::TITLE_META_KEY);
+            }
         }
     }
 
