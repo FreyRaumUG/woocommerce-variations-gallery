@@ -38,3 +38,57 @@
 .woocommerce-product-gallery.fvg-swapping .woocommerce-product-gallery__image img {
     opacity: 0;
 }
+
+/* Fix for single-image galleries without FlexSlider */
+/* When FlexSlider doesn't initialize (single image), ensure proper display */
+.woocommerce-product-gallery__wrapper {
+    overflow: hidden;
+}
+
+/* Ensure single image displays correctly when no FlexSlider viewport exists */
+.woocommerce-product-gallery:not(:has(.flex-viewport)) .woocommerce-product-gallery__wrapper {
+    max-height: none;
+    height: auto !important;
+}
+
+.woocommerce-product-gallery:not(:has(.flex-viewport)) .woocommerce-product-gallery__image {
+    display: block;
+    width: 100%;
+}
+
+.woocommerce-product-gallery:not(:has(.flex-viewport)) .woocommerce-product-gallery__image:first-child {
+    display: block;
+}
+
+.woocommerce-product-gallery:not(:has(.flex-viewport)) .woocommerce-product-gallery__image:not(:first-child) {
+    display: none;
+}
+
+.woocommerce-product-gallery:not(:has(.flex-viewport)) .woocommerce-product-gallery__image img {
+    width: 100%;
+    height: auto;
+}
+
+/* JavaScript-based fallback class for browsers without :has() support */
+.woocommerce-product-gallery.fvg-no-slider .woocommerce-product-gallery__wrapper {
+    max-height: none;
+    height: auto !important;
+}
+
+.woocommerce-product-gallery.fvg-no-slider .woocommerce-product-gallery__image {
+    display: block;
+    width: 100%;
+}
+
+.woocommerce-product-gallery.fvg-no-slider .woocommerce-product-gallery__image:first-child {
+    display: block;
+}
+
+.woocommerce-product-gallery.fvg-no-slider .woocommerce-product-gallery__image:not(:first-child) {
+    display: none;
+}
+
+.woocommerce-product-gallery.fvg-no-slider .woocommerce-product-gallery__image img {
+    width: 100%;
+    height: auto;
+}

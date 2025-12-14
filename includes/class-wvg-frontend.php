@@ -192,7 +192,10 @@ class WVG_Frontend {
 
         foreach ($all_image_ids as $attachment_id) {
             if (function_exists('wc_get_gallery_image_html')) {
-                $html .= wc_get_gallery_image_html($attachment_id, $is_first);
+                $image_html = wc_get_gallery_image_html($attachment_id, $is_first);
+                if (!empty($image_html)) {
+                    $html .= $image_html;
+                }
             }
             $is_first = false;
         }
